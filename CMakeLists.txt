@@ -141,6 +141,7 @@ set(LLVM_ALL_TARGETS
   MSP430
   NVPTX
   PowerPC
+  Pwisa
   R600
   Sparc
   SystemZ

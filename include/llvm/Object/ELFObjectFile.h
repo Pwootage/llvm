@@ -742,6 +742,7 @@ std::error_code ELFObjectFile<ELFT>::getRelocationValueString(
   case ELF::EM_ARM:
   case ELF::EM_HEXAGON:
   case ELF::EM_MIPS:
+  case ELF::EM_PWISA:
     res = *SymName;
     break;
   default:
@@ -845,6 +846,8 @@ StringRef ELFObjectFile<ELFT>::getFileFormatName() const {
       return "ELF32-mips";
     case ELF::EM_PPC:
       return "ELF32-ppc";
+    case ELF::EM_PWISA:
+        return "ELF32-pwisa";
     case ELF::EM_SPARC:
     case ELF::EM_SPARC32PLUS:
       return "ELF32-sparc";
@@ -901,6 +904,8 @@ unsigned ELFObjectFile<ELFT>::getArch() const {
     }
   case ELF::EM_PPC:
     return Triple::ppc;
+  case ELF::EM_PWISA:    // llvm-objdump -t -r
+    return Triple::pwisa;
   case ELF::EM_PPC64:
     return IsLittleEndian ? Triple::ppc64le : Triple::ppc64;
   case ELF::EM_S390:

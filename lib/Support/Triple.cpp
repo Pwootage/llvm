@@ -31,6 +31,7 @@ const char *Triple::getArchTypeName(ArchType Kind) {
   case msp430:      return "msp430";
   case ppc64:       return "powerpc64";
   case ppc64le:     return "powerpc64le";
+  case pwisa:       return "pwisa";
   case ppc:         return "powerpc";
   case r600:        return "r600";
   case sparc:       return "sparc";
@@ -74,6 +75,8 @@ const char *Triple::getArchTypePrefix(ArchType Kind) {
   case ppc64:
   case ppc64le:
   case ppc:         return "ppc";
+
+  case pwisa:        return "pwisa";
 
   case mips:
   case mipsel:
@@ -195,6 +198,7 @@ Triple::ArchType Triple::getArchTypeForLLVMName(StringRef Name) {
     .Case("msp430", msp430)
     .Case("ppc64", ppc64)
     .Case("ppc32", ppc)
+    .Case("pwisa", pwisa)
     .Case("ppc", ppc)
     .Case("ppc64le", ppc64le)
     .Case("r600", r600)
@@ -229,6 +233,7 @@ static Triple::ArchType parseArch(StringRef ArchName) {
     .Cases("i786", "i886", "i986", Triple::x86)
     .Cases("amd64", "x86_64", "x86_64h", Triple::x86_64)
     .Case("powerpc", Triple::ppc)
+    .Case("pwisa", Triple::pwisa)
     .Cases("powerpc64", "ppu", Triple::ppc64)
     .Case("powerpc64le", Triple::ppc64le)
     .Case("aarch64", Triple::aarch64)
@@ -812,6 +817,7 @@ static unsigned getArchPointerBitWidth(llvm::Triple::ArchType Arch) {
   case llvm::Triple::mipsel:
   case llvm::Triple::nvptx:
   case llvm::Triple::ppc:
+  case llvm::Triple::pwisa:
   case llvm::Triple::r600:
   case llvm::Triple::sparc:
   case llvm::Triple::tce:
@@ -880,6 +886,7 @@ Triple Triple::get32BitArchVariant() const {
   case Triple::mipsel:
   case Triple::nvptx:
   case Triple::ppc:
+  case Triple::pwisa:
   case Triple::r600:
   case Triple::sparc:
   case Triple::tce:
@@ -918,6 +925,7 @@ Triple Triple::get64BitArchVariant() const {
   case Triple::thumb:
   case Triple::thumbeb:
   case Triple::xcore:
+  case Triple::pwisa:
     T.setArch(UnknownArch);
     break;
 
