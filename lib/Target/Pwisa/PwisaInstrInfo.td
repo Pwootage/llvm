@@ -12,6 +12,14 @@
 //===----------------------------------------------------------------------===//
 
 //===----------------------------------------------------------------------===//
+// Cpu0 Instruction Predicate Definitions.
+//===----------------------------------------------------------------------===//
+//Currently I don't have any optional features
+//Makes things much simpler.
+//def IsCpu032I   :     Predicate<"Subtarget->hasCpu032I()">,
+//                      AssemblerPredicate<"FeatureCpu032I">;
+
+//===----------------------------------------------------------------------===//
 // Pwisa profiles and nodes
 //===----------------------------------------------------------------------===//
 
@@ -52,8 +60,8 @@ def mem : Operand<i32> {
 
 // Node immediate fits as 16-bit sign extended on target immediate.
 // e.g. addi, andi
-def immZExt16  : PatLeaf<(imm), [{ return isInt<16>(N->getZExtValue()); }]>;
-def immSExt16  : PatLeaf<(imm), [{ return isInt<16>(N->getSExtValue()); }]>;
+def immZExt16Leaf  : PatLeaf<(imm), [{ return isInt<16>(N->getZExtValue()); }]>;
+def immSExt16Leaf  : PatLeaf<(imm), [{ return isInt<16>(N->getSExtValue()); }]>;
 
 
 // Pwisa Address Mode!
@@ -102,7 +110,7 @@ class MathLogic<bits<6> op, bits<3> sub, string instr_asm, SDNode OpNode> :
 class MathLogicIS<bits<6> op, string instr_asm, SDNode OpNode> :
   F2<op, (outs CPURegs:$rd), (ins CPURegs:$ra, simm16:$imm16),
      !strconcat(instr_asm, "\t$rd, $ra, $imm16"),
-     [(set CPURegs:$rd, (OpNode CPURegs:$ra, simm16:$imm16))], IIAlu> {
+     [(set CPURegs:$rd, (OpNode CPURegs:$ra, immSExt16Leaf:$imm16))], IIAlu> {
   let isReMaterializable = 1;
 }
 
