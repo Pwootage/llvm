@@ -36,7 +36,7 @@ extern bool FixGlobalBaseReg;
 static StringRef selectPwisaCPU(Triple TT, StringRef CPU) {
     if (CPU.empty() || CPU == "generic") {
         if (TT.getArch() == Triple::pwisa)
-            CPU = "pwida32I";
+            CPU = "Pwisa32I";
     }
     return CPU;
 }

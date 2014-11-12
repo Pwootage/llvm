@@ -33,9 +33,9 @@ def Pwisa : Target {
 class Proc<string Name, list<SubtargetFeature> Features>
  : Processor<Name, Cpu0GenericItineraries, Features>;
 
-def FeaturePwisa32I     : SubtargetFeature<"pwisa032I", "PwisaArchVersion",
-                                "Pwisa32I", "Pwisa032I ISA Support">;
+def FeaturePwisa32I     : SubtargetFeature<"pwisa32I", "PwisaArchVersion",
+                                "Pwisa32I", "Pwisa32I ISA Support">;
 def FeatureP32          : SubtargetFeature<"p32", "PwisaABI", "P32",
                                 "Enable p32 ABI">;
 
-def : Proc<"pwisa32I",  [FeaturePwisa32I, FeatureP32]>;
+def : Proc<"Pwisa32I",  [FeaturePwisa32I, FeatureP32]>;
